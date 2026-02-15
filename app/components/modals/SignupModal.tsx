@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import useSetupModal from "@/app/hooks/useSetupModal";
+import useSignupModal from "../../hooks/useSignupModal";
 import Modal from "./Modal";
 
 const SetupModal = () => {
