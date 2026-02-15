@@ -19,10 +19,12 @@ const LoginClient = () => {
   const { setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
 
+  // set theme on load
   useEffect(() => {
     setTheme();
   }, []);
 
+  // reset user state on login page
   useEffect(() => {
     setUser({ id: "", name: "", image: "" });
   }, [setUser]);
@@ -50,21 +52,60 @@ const LoginClient = () => {
     <div className="flex flex-col lg:flex-row items-center justify-center gap-10 min-h-screen bg-[#f0f2f5] dark:bg-[#18191a] p-4">
       {/* Eos Branding Section */}
       <div className="flex flex-col items-center lg:items-start max-w-[500px] text-center lg:text-left">
-        <img src="/logo.png" width="100" height="100" alt="Eos Logo" className="mb-4" />
-        <h1 className="text-6xl font-bold text-[#ff8c00] tracking-tight">Eosocial</h1>
-        <p className="text-2xl mt-2 text-gray-700 dark:text-gray-300">A new dawn for social connection.</p>
+        <img 
+          src="/logo.png" 
+          width="120" 
+          height="120" 
+          alt="Eos Logo" 
+          className="mb-6 rounded-2xl shadow-sm" 
+        />
+        <h1 className="text-6xl font-bold text-[#ff8c00] tracking-tight">
+          Eosocial
+        </h1>
+        <p className="text-2xl mt-3 text-gray-700 dark:text-gray-300 leading-tight">
+          A new dawn for social connection.
+        </p>
       </div>
 
-      {/* Login Form Section */}
-      <div className="w-full max-w-[400px] bg-white dark:bg-[#242526] p-4 rounded-xl shadow-xl">
+      {/* Login Box Section */}
+      <div className="w-full max-w-[400px] bg-white dark:bg-[#242526] p-6 rounded-xl shadow-2xl">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} required />
-          <Input id="password" label="Password" type="password" disabled={isLoading} register={register} errors={errors} required />
-          <Button label="Log In" onClick={handleSubmit(onSubmit)} disabled={isLoading} />
+          <Input 
+            id="email" 
+            label="Email" 
+            disabled={isLoading} 
+            register={register} 
+            errors={errors} 
+            required 
+          />
+          <Input 
+            id="password" 
+            label="Password" 
+            type="password" 
+            disabled={isLoading} 
+            register={register} 
+            errors={errors} 
+            required 
+          />
+          <Button 
+            label="Log In" 
+            onClick={handleSubmit(onSubmit)} 
+            disabled={isLoading} 
+            className="bg-[#ff8c00] hover:bg-[#e67e00]"
+          />
         </form>
+        
+        <div className="text-center my-4">
+          <span className="text-blue-600 text-sm cursor-pointer hover:underline">
+            Forgotten password?
+          </span>
+        </div>
+        
         <hr className="my-6 border-gray-300 dark:border-gray-700" />
+        
         <div className="flex justify-center">
           <button 
+            type="button"
             onClick={signupModal.onOpen}
             className="bg-[#42b72a] hover:bg-[#36a420] text-white font-bold py-3 px-6 rounded-md transition"
           >
