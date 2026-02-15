@@ -1,103 +1,44 @@
 "use client"
 
 import { useState } from "react";
-import axios from "axios";
-import { toast } from "react-hot-toast";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
-import useSignupModal from "@/app/hooks/useSignupModal";
-
+import useSetupModal from "@/app/hooks/useSetupModal";
 import Modal from "./Modal";
-import Input from "../inputs/Input";
 
-const SignupModal = () => {
-  const signupModal = useSignupModal();
-  const [isSending, setIsSending] = useState<boolean>(false);
+const SetupModal = () => {
+  const setupModal = useSetupModal();
+  const [isSending, setIsSending] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm<FieldValues>({
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: ''
-    }
-  });
-
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setIsSending(true);
-
-    axios.post('/api/signup', data)
-      .then(() => {
-        toast.success('Welcome to Eosocial!');
-        reset();
-        signupModal.onClose();
-      })
-      .catch(() => {
-        toast.error("Error creating account. Check your connection.");
-      })
-      .finally(() => {
-        setIsSending(false);
-      });
+  const onSubmit = () => {
+    setupModal.onClose();
+    // This usually opens the ProfileModal we just fixed
   };
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-row gap-4">
-        <Input
-          id="firstName"
-          label="First name"
-          register={register}
-          errors={errors}
-          disabled={isSending}
-          required
-        />
-        <Input
-          id="lastName"
-          label="Last name"
-          register={register}
-          errors={errors}
-          disabled={isSending}
-          required
-        />
-      </div>
-      <Input
-        id="email"
-        label="Email" 
-        type="email"
-        register={register}
-        errors={errors}
-        disabled={isSending}
-        required
-      />
-      <Input
-        id="password"
-        label="New password" 
-        type="password"
-        register={register}
-        errors={errors}
-        disabled={isSending}
-        required
-      />
+    <div className="flex flex-col items-center justify-center text-center gap-4 py-8">
+      <h1 className="text-3xl font-bold text-black dark:text-white">
+        Welcome to Eosocial, Eos!
+      </h1>
+      <p className="text-neutral-500 dark:text-neutral-400 text-lg">
+        Let's create a profile. Don't worry, it will only take a minute.
+      </p>
+      <p className="text-neutral-500 dark:text-neutral-400">
+        Click Next to get started...
+      </p>
     </div>
   );
 
   return (
     <Modal
       disabled={isSending}
-      isOpen={signupModal.isOpen}
-      onClose={signupModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
-      title="Create an Eosocial Account"
-      subtitle="Join the new dawn of social connection."
-      actionLabel="Sign Up"
+      isOpen={setupModal.isOpen}
+      onClose={setupModal.onClose}
+      onSubmit={onSubmit}
+      actionLabel="Next"
+      title="Welcome"
+      subtitle="Account created successfully"
       body={bodyContent}
     />
   );
 };
 
-export default SignupModal;
+export default SetupModal;
