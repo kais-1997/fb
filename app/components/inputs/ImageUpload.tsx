@@ -2,25 +2,19 @@
 
 import Image from "next/image";
 import { useCallback } from "react";
-import { CldUploadWidget } from "next-cloudinary"; // for image upload
-import { TbPhotoPlus } from "react-icons/tb"; // for image upload icon
+import { CldUploadWidget } from "next-cloudinary";
+import { TbPhotoPlus } from "react-icons/tb";
 
-// declare global var for cloudinary
 declare global {
 	var cloudinary: any;
 }
 
-// props
 interface ImageUploadProps {
 	value: string;
 	onChange: (value: string) => void;
 }
 
-// Image Upload
-// upload an image to cloudinary and return the url
-// displays uploaded image
 const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => {
-	// update form value on upload
 	const handleUpload = useCallback(
 		(result: any) => {
 			onChange(result.info.secure_url);
@@ -28,10 +22,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => {
 		[onChange]
 	);
 
+	// This looks for your Vercel variable, or falls back to your preset name
+	const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "eosocial_preset";
+
 	return (
 		<CldUploadWidget
 			onUpload={handleUpload}
-			uploadPreset="mn6wsaeb" // cloudinary upload preset
+			uploadPreset={uploadPreset}
 			options={{
 				maxFiles: 1,
 			}}
@@ -49,14 +46,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => {
 						rounded-full border-2 border-neutral-300 border-dashed
 						cursor-pointer aspect-square hover:opacity-70 transition"
 					>
-						{/* upload icon */}
 						<TbPhotoPlus size={50} />
 
-						<div className="text-lg font-semibold">
+						<div className="text-lg font-semibold text-center">
 							Click to upload
 						</div>
 
-						{/* display uploaded image */}
 						{value && (
 							<div className="absolute inset-0 w-full h-full">
 								<Image
