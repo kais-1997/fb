@@ -10,16 +10,10 @@ import useSignupModal from "@/app/hooks/useSignupModal";
 import Modal from "./Modal";
 import Input from "../inputs/Input";
 
-// Signup Modal
-// modal for creating a new account
 const SignupModal = () => {
-  // view state, open/close modal
   const signupModal = useSignupModal();
-
-  // sending state for disabling inputs
   const [isSending, setIsSending] = useState<boolean>(false);
 
-  // form validation
   const {
     register,
     handleSubmit,
@@ -34,55 +28,47 @@ const SignupModal = () => {
     }
   });
 
-  // form submit
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // disable inputs
     setIsSending(true);
 
-    // send data to server
     axios.post('/api/signup', data)
       .then(() => {
-        // toast success
-        toast.success('Account created');
-
-        // reset form
+        toast.success('Welcome to Eosocial!');
         reset();
-
-        // close modal
         signupModal.onClose();
       })
       .catch(() => {
-        // toast error
-        toast.error("Error creating account");
+        toast.error("Error creating account. Check your connection.");
       })
       .finally(() => {
-        // re-enable inputs
         setIsSending(false);
       });
   };
 
-  // form body
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Input
-        id="firstName"
-        label="First name"
-        register={register}
-        errors={errors}
-        disabled={isSending}
-        required
-      />
-      <Input
-        id="lastName"
-        label="Last name"
-        register={register}
-        errors={errors}
-        disabled={isSending}
-        required
-      />
+      <div className="flex flex-row gap-4">
+        <Input
+          id="firstName"
+          label="First name"
+          register={register}
+          errors={errors}
+          disabled={isSending}
+          required
+        />
+        <Input
+          id="lastName"
+          label="Last name"
+          register={register}
+          errors={errors}
+          disabled={isSending}
+          required
+        />
+      </div>
       <Input
         id="email"
-        label="Email" type="email"
+        label="Email" 
+        type="email"
         register={register}
         errors={errors}
         disabled={isSending}
@@ -90,7 +76,8 @@ const SignupModal = () => {
       />
       <Input
         id="password"
-        label="Password" type="password"
+        label="New password" 
+        type="password"
         register={register}
         errors={errors}
         disabled={isSending}
@@ -105,9 +92,9 @@ const SignupModal = () => {
       isOpen={signupModal.isOpen}
       onClose={signupModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
+      title="Create an Eosocial Account"
+      subtitle="Join the new dawn of social connection."
       actionLabel="Sign Up"
-      title="Sign Up"
-      subtitle="It's quick and easy."
       body={bodyContent}
     />
   );
