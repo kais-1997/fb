@@ -49,4 +49,75 @@ const LoginClient = () => {
   };
 
   return (
-    <div className="flex flex-col lg:
+    <div className="flex flex-col lg:flex-row items-center justify-center gap-10 min-h-screen bg-[#f0f2f5] dark:bg-[#18191a] p-4">
+      {/* Eos Branding Section */}
+      <div className="flex flex-col items-center lg:items-start max-w-[500px] text-center lg:text-left">
+        <img 
+          src="/logo.png" 
+          width="120" 
+          height="120" 
+          alt="Eos Logo" 
+          className="mb-6 rounded-2xl shadow-sm" 
+        />
+        <h1 className="text-6xl font-bold text-[#ff8c00] tracking-tight">
+          Eosocial
+        </h1>
+        <p className="text-2xl mt-3 text-gray-700 dark:text-gray-300 leading-tight">
+          A new dawn for social connection.
+        </p>
+      </div>
+
+      {/* Login Box Section */}
+      <div className="w-full max-w-[400px] bg-white dark:bg-[#242526] p-6 rounded-xl shadow-2xl">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <Input 
+            id="email" 
+            label="Email" 
+            disabled={isLoading} 
+            register={register} 
+            errors={errors} 
+            required 
+          />
+          <Input 
+            id="password" 
+            label="Password" 
+            type="password" 
+            disabled={isLoading} 
+            register={register} 
+            errors={errors} 
+            required 
+          />
+          {/* Main Log In Button - Changed to Brand Orange */}
+          <Button 
+            label="Log In" 
+            onClick={handleSubmit(onSubmit)} 
+            disabled={isLoading} 
+            className="bg-[#ff8c00] hover:bg-[#e67e00] border-none text-white transition duration-300"
+          />
+        </form>
+        
+        <div className="text-center my-4">
+          {/* Link Text - Changed from Blue to Gray for better contrast */}
+          <span className="text-gray-500 text-sm cursor-pointer hover:underline">
+            Forgotten password?
+          </span>
+        </div>
+        
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+        
+        <div className="flex justify-center">
+          {/* Create Account Button - Changed from Green to Gold/Orange */}
+          <button 
+            type="button"
+            onClick={signupModal.onOpen}
+            className="bg-[#ffb347] hover:bg-[#ffa014] text-white font-bold py-3 px-6 rounded-md transition duration-300"
+          >
+            Create New Account
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LoginClient;
