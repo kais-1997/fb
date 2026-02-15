@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           size={26}
           className={`
             ${selected === 'Home' ? 'text-[#1a77f2]' : 'text-black dark:text-[#e4e6eb]'}
-          `}
+          }
         />
         <div
           className={`
