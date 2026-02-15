@@ -57,9 +57,10 @@ const Navbar: React.FC<NavbarProps> = ({
       bg-white dark:bg-[#242526] border-t-0
       border-b border-neutral-300 dark:border-[#393b3d] shadow-sm"
     >
-      {/* logo */}
-      <Link href="/">
-        <h1 className="text-3xl font-bold text-[#1a77f2]">facebook</h1>
+            {/* logo */}
+      <Link href="/" className="flex items-center">
+        <img src="/logo.png" width="40" height="40" alt="Eos Logo" className="rounded-md" />
+        <span className="hidden sm:block ml-2 text-2xl font-bold text-[#ff8c00]">Eos</span>
       </Link>
 
       {/* search bar */}
@@ -70,7 +71,7 @@ const Navbar: React.FC<NavbarProps> = ({
         hover:bg-neutral-200 dark:hover:bg-[#4e4f50] "
       >
         <ImSearch size={16} />
-        <div className="hidden md:block">Search Facebook</div>
+        <div className="hidden md:block">Search Eosocial</div>
       </div>
 
       <div className="flex flex-row items-center gap-2 ml-auto">
@@ -89,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
           {/* notifications badge */}
           {notifications && notifications.length > 0 && (
-            <div className="z-50 absolute bottom-0 right-0 block w-3 h-3 bg-[#1A77F2] rounded-full"></div>
+            <div className="z-50 absolute bottom-0 right-0 block w-3 h-3 bg-[#ff8c00] rounded-full"></div>
           )}
         </button>
 
