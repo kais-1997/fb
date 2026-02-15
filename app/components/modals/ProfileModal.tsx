@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import useProfileModal from "@/app/hooks/useProfileModal";
+import useProfileModal from "../../hooks/useProfileModal";
 
 import Modal from "./Modal";
 import Input from "../inputs/Input";
