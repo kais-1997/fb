@@ -5,23 +5,16 @@ import { useContext, useState } from "react";
 import { MdHome } from "react-icons/md";
 
 import { UserContext } from "@/app/providers/UserProvider";
-
 import Avatar from "../common/Avatar";
 
-// props
 interface SidebarProps {
-  profile?: boolean; // true if on profile page
+  profile?: boolean;
 }
 
-// Sidebar
-// links to home and profile pages
 const Sidebar: React.FC<SidebarProps> = ({
   profile = false,
 }) => {
-  // get user
   const { user } = useContext(UserContext);
-
-  // selected link, for displaying active link
   const [selected, setSelected] = useState<String>(profile ? 'User' : 'Home');
 
   return (
@@ -34,7 +27,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         ${profile && ('lg:!flex-initial bg-white dark:bg-[#242526] lg:!border-r')}
       `}
     >
-      {/* home button */}
       <Link
         href="/"
         onClick={() => setSelected('Home')}
@@ -45,24 +37,17 @@ const Sidebar: React.FC<SidebarProps> = ({
           ${selected === 'Home' ? 'sidebar-selected' : ''}
         `}
       >
-        {/* icon */}
         <MdHome
           size={26}
           className={`
-            ${selected === 'Home' ? 'text-[#1a77f2]' : 'text-black dark:text-[#e4e6eb]'}
-          }
-        />
-        <div
-          className={`
-            hidden lg:block
-            ${profile && ('lg:!hidden')}
+            ${selected === 'Home' ? 'text-[#ff8c00]' : 'text-black dark:text-[#e4e6eb]'}
           `}
-        >
+        />
+        <div className={`hidden lg:block ${profile && ('lg:!hidden')}`}>
           Home
         </div>
       </Link>
 
-      {/* user button */}
       <Link
         href={`/user/${user.id}`}
         onClick={() => setSelected('User')}
@@ -73,22 +58,12 @@ const Sidebar: React.FC<SidebarProps> = ({
           ${selected === 'User' && ('sidebar-selected')}
         `}
       >
-        {/* user avatar */}
         <Avatar user={user} size={26} />
-
-        {/* name */}
-        <div
-          className={`
-            hidden lg:block whitespace-normal
-            ${profile && ('lg:!hidden')}
-          `}
-        >
+        <div className={`hidden lg:block whitespace-normal ${profile && ('lg:!hidden')}`}>
           {user.name}
         </div>
       </Link>
-
       <hr className="border-neutral-300 dark:border-[#393a3b]" />
-      
     </div>
   );
 };
